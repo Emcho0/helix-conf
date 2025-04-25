@@ -1,0 +1,8 @@
+theme = "catppuccin_mocha"
+
+[editor]
+end-of-line-diagnostics = "hint"
+color-modes = true
+
+[editor.inline-diagnostics]
+cursor-line = "error"

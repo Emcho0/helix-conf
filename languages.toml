@@ -1,0 +1,53 @@
+[language-server]
+biome = { command = "biome", args = ["lsp-proxy"] }
+
+[[language]]
+name = "javascript"
+roots = ["biome.json", "biome.jsonc", "package.json"]
+language-servers = [
+    { name = "typescript-language-server", except-features = ["format"] },
+    "biome"
+]
+auto-format = true
+formatter = { command = "biome", args = ["check","--write", "--stdin-file-path", "app.js"] }
+
+
+[[language]]
+name = "typescript"
+roots = ["biome.json", "biome.jsonc", "package.json"]
+language-servers = [
+    { name = "typescript-language-server", except-features = ["format"] },
+    "biome"
+]
+auto-format = true
+formatter = { command = "biome", args = ["check","--write", "--stdin-file-path", "app.ts"] }
+
+[[language]]
+name = "tsx"
+auto-format = true
+roots = ["biome.json", "biome.jsonc", "package.json"]
+language-servers = [
+    { name = "typescript-language-server", except-features = ["format"] },
+    "biome"
+]
+formatter = { command = "biome", args = ["check","--write", "--stdin-file-path", "app.tsx"] }
+
+[[language]]
+name = "jsx"
+roots = ["biome.json", "biome.jsonc", "package.json"]
+auto-format = true
+language-servers = [
+    { name = "typescript-language-server", except-features = ["format"] },
+    "biome"
+]
+formatter = { command = "biome", args = ["check","--write", "--stdin-file-path", "app.jsx"] }
+[[language]]
+name = "json"
+auto-format = true
+roots = ["biome.json", "biome.jsonc", "package.json"]
+language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "python"
+auto-format = true
+language-servers = ["ruff","basedpyright"]

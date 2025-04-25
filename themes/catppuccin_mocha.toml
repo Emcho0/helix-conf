@@ -1,0 +1,4 @@
+inherits = "catppuccin_mocha"
+
+[palette]
+base = "#0F101B"
