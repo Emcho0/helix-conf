@@ -1,3 +1,8 @@
+# Web dev setup
+[language-server.emmet-lsp]
+command = "emmet-language-server"
+args = ["--stdio"]
+
 [language-server]
 biome = { command = "biome", args = ["lsp-proxy"] }
 
@@ -28,7 +33,7 @@ auto-format = true
 roots = ["biome.json", "biome.jsonc", "package.json"]
 language-servers = [
     { name = "typescript-language-server", except-features = ["format"] },
-    "biome"
+    "biome", "emmet-lsp"
 ]
 formatter = { command = "biome", args = ["check","--write", "--stdin-file-path", "app.tsx"] }
 
@@ -38,7 +43,7 @@ roots = ["biome.json", "biome.jsonc", "package.json"]
 auto-format = true
 language-servers = [
     { name = "typescript-language-server", except-features = ["format"] },
-    "biome"
+    "biome", "emmet-lsp"
 ]
 formatter = { command = "biome", args = ["check","--write", "--stdin-file-path", "app.jsx"] }
 [[language]]
@@ -47,7 +52,33 @@ auto-format = true
 roots = ["biome.json", "biome.jsonc", "package.json"]
 language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
 
+
+# Python setup
+
 [[language]]
 name = "python"
+language-id = "python"
+roots = ["pyproject.toml", "ruff.toml", "poetry.lock", ".git", ".venv/"]
+language-servers = ["ruff", "basedpyright"]
+formatter = { command = "bash", args = ["-c", "ruff check --select ALL --fix -e -s - | ruff format -" ] }
+file-types = ["py", "ipynb"]
+comment-token = "#"
+shebangs = ["python"]
 auto-format = true
-language-servers = ["ruff","basedpyright"]
+
+[language-server.basedpyright]
+command = "basedpyright-langserver"
+args = ["--stdio"]
+# except-features = ["format", "code-action"]
+
+[language-server.basedpyright.config.basedpyright.analysis]
+autoSearchPaths = true
+typeCheckingMode = "basic"
+diagnosticMode = "openFilesOnly"
+autoImportCompletions = true
+
+[language-server.ruff]
+command = "ruff"
+args = ["server", "--preview"]
+environment = { "RUFF_TRACE" = "messages" }
+
